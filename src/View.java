@@ -151,6 +151,6 @@ public class View
 	public void infoNoSerwer()
 	{
 		/** Wyswietlenie okna dialogowego gdy strumień nieczynny */
-		JOptionPane.showMessageDialog(frame, "Login already exists. Please type another login.");
+		JOptionPane.showMessageDialog(frame, "No serwer detected.");
 	}
 }

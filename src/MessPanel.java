@@ -337,6 +337,9 @@ public class MessPanel extends JPanel
 				i++;
 			}
 	
+			/** Sprawdzenie czy helpStr to login Klienta, jesli tak to pominiecie reszty petli */
+			if(helpStr.equals(klient.getLogin())) continue;
+			
 			/** Stworzenie przycisku */
 			JRadioButton button = new JRadioButton(helpStr);
 			
