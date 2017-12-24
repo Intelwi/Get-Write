@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -41,6 +43,9 @@ public class MessPanel extends JPanel
 	
 	/** Przycisk do wylogowania */
 	private JButton logoutButton;
+	
+	/** Aktualnie wybrany RadioButton */
+	private JRadioButton selectedButton;
 	
 	/** Pole tekstowe do pisania wiadomosci */
 	private JTextArea inText;
@@ -93,6 +98,7 @@ public class MessPanel extends JPanel
 		name = new JLabel();
 		inButton = new JButton("Send");
 		logoutButton = new JButton("Log out");
+		selectedButton = new JRadioButton();
 		inText = new JTextArea(5, 20);
 		outText = new JTextArea(20, 20);
 		targetClientL = new JLabel("Target not defined");
@@ -315,6 +321,9 @@ public class MessPanel extends JPanel
 		/** Indeks */
 		int i = 1;
 		
+		/** Stworzenie grupy przyciskow */
+		ButtonGroup group = new ButtonGroup();
+		
 		/** Wyczytawanie nazw Klientow ze String */
 		while(++i<list.length())
 		{
@@ -329,26 +338,45 @@ public class MessPanel extends JPanel
 			}
 	
 			/** Stworzenie przycisku */
-			JButton button = new JButton(helpStr);
+			JRadioButton button = new JRadioButton(helpStr);
+			
+			/** Warunek ze jesli nazwa przycisku taka jak targetClient to ma zostac wcisniety */
+			if(helpStr.equals(targetClient))
+			{
+				button.setSelected(true);
+				selectedButton = button;
+			}
+			
+			/** Dodanie przycisku do grupy */
+			group.add(button);
 			
 			/** Dodanie słuchacza nowo powstałego przycisku */
 			button.addActionListener(new ActionListener() { 
 				public void actionPerformed(ActionEvent e) 
 				{
 					Object o = e.getSource();
-					JButton b = null;
+					JRadioButton b = null;
 					String buttonText = "Error: getting targetClient name from JButton";
 					
-					if(o instanceof JButton) b = (JButton)o;
+					if(o instanceof JRadioButton) b = (JRadioButton)o;
 					
 					/** Wyszukanie czy karta z konwersacja do tego klienta (b.getText()) juz powstala - jesli tak wyswietlenie komunikatu*/
-					if(view.isOnTheList(b.getText())) JOptionPane.showMessageDialog(frame, "Such a client already selected.");
+					if(view.isOnTheList(b.getText()))
+					{
+						b.setSelected(false);
+						selectedButton.setSelected(true);
+						JOptionPane.showMessageDialog(frame, "Such a client already selected.");
+					}
 					
 					/** Jesli karta z konwersacja do tego klienta (b.getText()) nie powstala to tworzona jest nowa karta lub zmieniany targetClient w karcie */
 					else
 					{	
 						/** Ustawienie docelowego odbiorcy wiadomosci */
-						if(b != null) setTargetClient(b.getText());
+						if(b != null) 
+						{
+							selectedButton = b;
+							setTargetClient(b.getText());
+						}
 					
 						/** Gdy ustawienie docelowego odbiorcy wiadomosci sie nie powiodlo */
 						if(b == null) setTargetClient(buttonText);

@@ -112,6 +112,9 @@ public class View
 
 			/** Ustawienie nowego docelowego odbiorcy wiadomosci (targetClient) */
 			((MessPanel)tabbedPane.getComponentAt(0)).setTargetClient(msg.getAdresat());
+			
+			/** Odswiezenie listy klientow (wlacznie z zaznaczeniem aktualnego targetClient) */
+			((MessPanel)tabbedPane.getComponentAt(0)).createButtontList(listMsg);
 		}
 		
 		/** Gdy otwarta jedna karta i ma zdefiniowanego targetClient */
@@ -119,6 +122,12 @@ public class View
 		{
 			/** Nowa zawartośsc okna */
 			JPanel messPanel1 = new MessPanel(klient, frame, this);
+			
+			/** Wyswietlenie wiadomosci w ramce z tekstem i wykasowanie wszystkich poprzednich wiadomosci */
+			((MessPanel)messPanel1).setText(msg);
+
+			/** Ustawienie nowego docelowego odbiorcy wiadomosci (targetClient) */
+			((MessPanel)messPanel1).setTargetClient(msg.getAdresat());
     	
 			/** Aktualizacja listy klientow w nowej zakladce */
 			((MessPanel)messPanel1).createButtontList(listMsg);
@@ -128,12 +137,6 @@ public class View
     	
 			/** Odswiezanie widoku */
 			frame.validate(); 
-    	
-			/** Wyswietlenie wiadomosci w ramce z tekstem i wykasowanie wszystkich poprzednich wiadomosci */
-			((MessPanel)messPanel1).setText(msg);
-
-			/** Ustawienie nowego docelowego odbiorcy wiadomosci (targetClient) */
-			((MessPanel)messPanel1).setTargetClient(msg.getAdresat());
 		}
 	}
 	
