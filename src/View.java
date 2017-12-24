@@ -104,11 +104,11 @@ public class View
 	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient jest juz ustawiony w karcie Start) */
 	public void updateCreateNewTab(Message msg, Message listMsg) 
 	{
-		/** Gdy otwarta jedna karta, ale nie ma zdefiniowanego targetClient (targetClient jest wypelnione przez defaultStr) lub klient pisze sam ze soba */
-		if(tabbedPane.getTabCount()==1 && ((((MessPanel)tabbedPane.getComponentAt(0)).getTargetClient()).equals(((MessPanel)tabbedPane.getComponentAt(0)).getDefaultStr()) || (klient.getLogin()).equals(((MessPanel)tabbedPane.getComponentAt(0)).getTargetClient())))
+		/** Gdy otwarta jedna karta, ale nie ma zdefiniowanego targetClient (targetClient jest wypelnione przez defaultStr) */
+		if(tabbedPane.getTabCount()==1 && (((MessPanel)tabbedPane.getComponentAt(0)).getTargetClient()).equals(((MessPanel)tabbedPane.getComponentAt(0)).getDefaultStr()))
 		{
 			/** Wyswietlenie wiadomosci w ramce z tekstem */
-			((MessPanel)tabbedPane.getComponentAt(0)).addText(msg);
+			((MessPanel)tabbedPane.getComponentAt(0)).setText(msg);
 
 			/** Ustawienie nowego docelowego odbiorcy wiadomosci (targetClient) */
 			((MessPanel)tabbedPane.getComponentAt(0)).setTargetClient(msg.getAdresat());
