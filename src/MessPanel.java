@@ -85,7 +85,13 @@ public class MessPanel extends JPanel
 	 
 	 /** Etykieta karty w ktorej bedzie znajdowac sie panel */
 	 private JLabel name;
-	
+	 
+	 /** Klasa tylko do pobrania defaultStr */
+	 public MessPanel()
+		{
+			super();
+		}
+	 
 	/** Klasa z panelem obslugi wysylania i odbierania wiadomosci */
 	public MessPanel(Klient klient, ActionFrame frame, View view)
 	{
