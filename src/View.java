@@ -73,8 +73,25 @@ public class View
 			/** Iterowanie do poki nie znajdzie nadawcy tej wiadomosci na liscie interfejsow graficznych */
 			if(msg.getTarget().equals(((MessPanel)tabbedPane.getComponentAt(i)).getTargetClient()))
 			{
-				/** Powiadomienie uzytkownika interfejsu przez nadpisanie label'a */
-				((MessPanel)tabbedPane.getComponentAt(i)).setInfo(msg);
+				/** Jesli pierwsza karta (o nazwie "Start") */
+				if(i==0)
+				{
+					/** Powiadomienie uzytkownika interfejsu przez nadpisanie label'a */
+					((MessPanel)tabbedPane.getComponentAt(i)).setInfo(msg);
+				
+					/** Wyswietlenie informacji w oknie dialogowym*/
+					JOptionPane.showMessageDialog(frame, msg.getMessagetxt());
+				}
+				
+				/** Jesli kazda kolejna karta */
+				else
+				{
+					/** Wyswietlenie informacji w oknie dialogowym*/
+					JOptionPane.showMessageDialog(frame, msg.getMessagetxt());
+					
+					/** Wykasowanie karty */
+					tabbedPane.removeTabAt(i);
+				}
 			}
 		}
 	}
@@ -105,7 +122,7 @@ public class View
 	public void updateCreateNewTab(Message msg, Message listMsg) 
 	{
 		/** Gdy otwarta jedna karta, ale nie ma zdefiniowanego targetClient (targetClient jest wypelnione przez defaultStr) */
-		if(tabbedPane.getTabCount()==1 && (((MessPanel)tabbedPane.getComponentAt(0)).getTargetClient()).equals(((MessPanel)tabbedPane.getComponentAt(0)).getDefaultStr()))
+		if(tabbedPane.getTabCount()==1 && (((MessPanel)tabbedPane.getComponentAt(0)).getTargetClient()).equals(((MessPanel)tabbedPane.getComponentAt(0)).getDefaultStr1()))
 		{
 			/** Wyswietlenie wiadomosci w ramce z tekstem */
 			((MessPanel)tabbedPane.getComponentAt(0)).setText(msg);
@@ -143,7 +160,7 @@ public class View
 	/** Pokazanie powiadomienia ze podany login juz zostal wybrany */
 	public void infoDoubleLogin()
 	{
-		/** Wyswietlenie okna dialogowego gdy strumień nieczynny */
+		/** Wyswietlenie okna dialogowego gdy wpisano juz istniejacy login */
 		JOptionPane.showMessageDialog(frame, "Login already exists. Please type another login.");
 	}
 	
@@ -152,5 +169,12 @@ public class View
 	{
 		/** Wyswietlenie okna dialogowego gdy strumień nieczynny */
 		JOptionPane.showMessageDialog(frame, "No serwer detected.");
+	}
+	
+	/** Pokazanie powiadomienia ze nie wybrano odbiorcy wiadomosci */
+	public void infoNoTarget()
+	{
+		/** Wyswietlenie okna dialogowego gdy nie wybrano klienta */
+		JOptionPane.showMessageDialog(frame, "No client chosen.");
 	}
 }

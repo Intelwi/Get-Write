@@ -98,7 +98,7 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 			String login2 = logField.getText();
 			
 			/** Sprawdzenie czy nazwa uzytkownika to nazwa zabroniona ("noTarget") */
-			if(login2.equals(new MessPanel().getDefaultStr()))
+			if(login2.equals(new MessPanel().getDefaultStr1()))
 			{
 				JOptionPane.showMessageDialog(frame, "Reserved name. Please choose another login.");
 		    	return;

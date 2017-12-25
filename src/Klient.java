@@ -42,6 +42,12 @@ public class Klient extends Thread
 			oos.flush();
 		}
 		
+		/** Pobranie wiadomosci z lista Klientow */
+		public Message getListMsg()
+		{
+			return listMsg;
+		}
+		
 		/** Wyslanie wiadomosci */
 		private void send(Message msg) throws Exception
 		{

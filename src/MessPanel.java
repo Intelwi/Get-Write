@@ -81,7 +81,10 @@ public class MessPanel extends JPanel
 	 private JPanel listPanel;
 	 
 	 /** Zawartosc targetClient na poczatku dzialania aplikacji lub gdy nie ma okreslonego istniejacego na liscie targetClient */
-	 private final String defaultStr = new String("noTarget"); 
+	 private final String defaultStr = new String("Target not defined"); 
+	 
+	 /** Zawartosc targetClient na poczatku dzialania aplikacji lub gdy nie ma okreslonego istniejacego na liscie targetClient */
+	 private final String defaultStr1 = new String("noTarget"); 
 	 
 	 /** Etykieta karty w ktorej bedzie znajdowac sie panel */
 	 private JLabel name;
@@ -107,12 +110,12 @@ public class MessPanel extends JPanel
 		selectedButton = new JRadioButton();
 		inText = new JTextArea(5, 20);
 		outText = new JTextArea(20, 20);
-		targetClientL = new JLabel("Target not defined");
+		targetClientL = new JLabel(defaultStr);
 		login = new JLabel("User: " + klient.getLogin());
 		infoLabel1 = new JLabel("Income:");
 		infoLabel2 = new JLabel("Me:");
 		infoLabel3 = new JLabel("Available users:");
-		targetClient = new String(defaultStr);//trzeba dac "noTarget" bo jak pusty to wywala indexoutofrangeexception
+		targetClient = new String(defaultStr1);//trzeba dac "noTarget" bo jak pusty to wywala indexoutofrangeexception
 		
 		/** Ustawienie sowakow dla pol tekstowych */
 		scrollPaneIn = new JScrollPane(inText);
@@ -131,14 +134,28 @@ public class MessPanel extends JPanel
 					/** Wyslanie wiadomosci jesli nie jest pusta */
 					if(inText.getText().isEmpty() == false)
 					{
-						/** Klient wysyla wiadomosc jesli nie pisze do samego siebie */
-						if(!(klient.getLogin().equals(targetClient))) klient.createSendMessage(targetClient, inText.getText());
+						/** Klient wysyla wiadomosc jesli wybrano odbiorce wiadomosci */
+						if(!(getTargetClientL().equals(getDefaultStr())))
+						{
+							/** Stworzenie i wyslanie wiadomosci */
+							klient.createSendMessage(targetClient, inText.getText());
 					
-						/** Wstawienie do pola z przychodzacymi wiadomosciami wiadomosci napisanej przez uzytkownika */ 
-						addText(klient.getLogin() + ": " + inText.getText());
+							/** Wstawienie do pola z przychodzacymi wiadomosciami wiadomosci napisanej przez uzytkownika */ 
+							addText(klient.getLogin() + ": " + inText.getText());
 					
-						/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
-						inText.setText("");
+							/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
+							inText.setText("");
+						}
+						
+						/** Jesli nie wybrano odbiorcy wiadomosci wyswietlenie komunikatu */
+						else 
+						{
+							/** Wyswietlenie komunikatu */
+							view.infoNoTarget();
+							
+							/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
+							inText.setText("");
+						}
 					}
 				}
 				
@@ -175,15 +192,25 @@ public class MessPanel extends JPanel
 						/** Pomocniczy string z wycietym znakiem nadmiarowego znaku nowej linii (powstałego przez wcisniecie klawisza ENTER) */
 						String str = cutNewLine(inText.getText());
 						
-						/** Wyslanie wiadomosci jesli nie jest pusta */
-						if(str.isEmpty() == false)
+						/** Klient wysyla wiadomosc jesli wybrano odbiorce wiadomosci */
+						if(!(getTargetClientL().equals(getDefaultStr())))
 						{
-							/** Klient wysyla wiadomosc jesli nie pisze do samego siebie */
-							if(!(klient.getLogin().equals(targetClient))) klient.createSendMessage(targetClient, str);
-						
-							/** Wstawienie do pola z przychodzacymi wiadomosciami wiadomosci napisanej przez uzytkownika jesli nie pisze do samego siebie */
+							/** Stworzenie i wyslanie wiadomosci */
+							klient.createSendMessage(targetClient, str);
+					
+							/** Wstawienie do pola z przychodzacymi wiadomosciami wiadomosci napisanej przez uzytkownika */ 
 							addText(klient.getLogin() + ": " + str);
+					
+							/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
+							inText.setText("");
+						}
 						
+						/** Jesli nie wybrano odbiorcy wiadomosci wyswietlenie komunikatu */
+						else 
+						{
+							/** Wyswietlenie komunikatu */
+							view.infoNoTarget();
+							
 							/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
 							inText.setText("");
 						}
@@ -283,6 +310,12 @@ public class MessPanel extends JPanel
 		return MessPanel.firstName;
 	}
 	
+	/** Pobranie informacji z Label'a z informacjami o targetClient */
+	public String getTargetClientL()
+	{
+		return targetClientL.getText();
+	}
+	
 	/** Zainicjowanie referencji do label'a z nazwa karty w ktorej znajduje sie panel */
 	public void setName(JLabel name)
 	{
@@ -295,6 +328,12 @@ public class MessPanel extends JPanel
 		return defaultStr;
 	}
 	
+	/** Pobranie domyslnej zawartosci pola targetClient(defaultStr1) */
+	public String getDefaultStr1()
+	{
+		return defaultStr1;
+	}
+	
 	/** Pobranie nazwy docelowego odbiorcy wiadomosci */
 	public String getTargetClient()
 	{
@@ -305,14 +344,21 @@ public class MessPanel extends JPanel
 	public void setTargetClient(String targetClient)
 	{
 		this.targetClient = targetClient;
+		
+		/** Nadpisanie etykiety informujacej o targetClient */
 		(this.targetClientL).setText("To: " + targetClient);
 	}
 	
 	/** Ustawienie powiadomienia dla klienta od serwera */
 	public void setInfo(Message msg)
 	{
-		this.targetClient = defaultStr;
-		(this.targetClientL).setText(msg.getMessagetxt());
+		this.targetClient = defaultStr1;
+		
+		/** Wyczyszczenie pola tekstowego do wpisywania wiadomosci */
+		setText("");
+		
+		/** Nadpisanie etykiety informujacej o targetClient */
+		(this.targetClientL).setText("To:");
 	}
 	
 	/** Tworzenie listy przyciskow z klientami i wyswietlenie */
@@ -375,6 +421,9 @@ public class MessPanel extends JPanel
 						b.setSelected(false);
 						selectedButton.setSelected(true);
 						JOptionPane.showMessageDialog(frame, "Such a client already selected.");
+						
+						/** Jesli nie jest zaznaczony zaden RadioButton i powinno tak zostac to odswiezenie listy (jesli tego nie ma to b i tak zostaje wcisniety) */
+						if(b.isSelected()) view.createButtontList(klient.getListMsg());
 					}
 					
 					/** Jesli karta z konwersacja do tego klienta (b.getText()) nie powstala to tworzona jest nowa karta lub zmieniany targetClient w karcie */
