@@ -26,7 +26,7 @@ public class Klient extends Thread
 		/** Aktualna Wiadomosc od serwera z lista dostepnych klientow */
 		private Message listMsg;
 		
-		public Klient(String host, int port, String login1, View view) throws IOException 
+		public Klient(String host, int port, String login1, View view) throws IOException
 		{
 			listMsg = new Message("");
 			login = login1;

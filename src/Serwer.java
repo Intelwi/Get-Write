@@ -3,11 +3,15 @@
 import java.io.*; 
 import java.net.*; 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 /** Klasa odpowiedzialna za dzialane strony serwera */
 public class Serwer extends Thread 
 {		
+		/** Maxymalna dopuszczalna liczba watkow */
+		static final int MAXSIZE = 15;
+	
 		/** Lista klientow serwera */
 		static ArrayList<Serwer> clients; 
 		
@@ -69,6 +73,17 @@ public class Serwer extends Thread
 					oos.close();
 				}
 			}
+		}
+		
+		/** Metoda sprawdzajaca czy Serwer przyjal maksymalna liczbe Klientow */
+		static public boolean isFull()
+		{
+			/** Sprawdzenie czy lista osiagnela teoretyczny maksymalny rozmiar */
+			if(clients.size()>=MAXSIZE)
+			{
+				return true;
+			}
+			else return false;
 		}
 		
 		/** Metoda wysylajaca wiadomosc do Klienta */
@@ -218,23 +233,45 @@ public class Serwer extends Thread
 			/** Stworzenie klasy obslugujacej uzytkownika */
 			SerwerMenu serwerMenu = new SerwerMenu();
 			
+			System.out.println("Serwer turned on.\nIP Adress: "+InetAddress.getLocalHost().getHostAddress());
+			
+			
+			/* TEST */
+			Enumeration ef = NetworkInterface.getNetworkInterfaces();
+			while(ef.hasMoreElements())
+			{
+			    NetworkInterface n = (NetworkInterface) ef.nextElement();
+			    Enumeration ee = n.getInetAddresses();
+			    while (ee.hasMoreElements())
+			    {
+			        InetAddress i = (InetAddress) ee.nextElement();
+			        System.out.println(i.getHostAddress());
+			    }
+			}
+			/* TEST */
+			
+			
 			/** Uruchomienie watku obslugujacego uzytkownika */
 			serwerMenu.start();
-			
-			//System.out.println("Client searching ...");
 			
 			try {
 				
 				while(true) 
-				{
+				{	
 					/** Nasluchiwanie Kienta */
 					Socket s =ss.accept();
 					
-					//System.out.println("Accepted connection with Client: "+s.getInetAddress());
+					/** Sprawdzenie czy maksymalna pula obslugiwanych watkow jest wyczerpana */
+					if(isFull())
+					{
+						s.close();
+						continue;
+					}
 					
 					/** Inicjalizacja watku serwera do obslugi klienta */
 					Serwer f1 = new Serwer(s);
 					
+					/** Sprawdzenie czy obiekt mozna utworzyc watek */
 					if(f1.isUsable)
 					{
 						synchronized (clients)
@@ -248,8 +285,8 @@ public class Serwer extends Thread
 							/** Wyslanie listy klientow do kazdego klienta */
 							for(Serwer klient: clients)
 							{
-									/** Wysylanie listy */
-									klient.sendList();
+								/** Wysylanie listy */
+								klient.sendList();
 							}
 						}
 					}
