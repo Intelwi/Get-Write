@@ -233,10 +233,9 @@ public class Serwer extends Thread
 			/** Stworzenie klasy obslugujacej uzytkownika */
 			SerwerMenu serwerMenu = new SerwerMenu();
 			
-			System.out.println("Serwer turned on.\nIP Adress: "+InetAddress.getLocalHost().getHostAddress());
-			
-			
-			/* TEST */
+			/* TEST
+			System.out.println("Serwer turned on.\nIP Adress: ");
+						
 			Enumeration ef = NetworkInterface.getNetworkInterfaces();
 			while(ef.hasMoreElements())
 			{
@@ -248,7 +247,7 @@ public class Serwer extends Thread
 			        System.out.println(i.getHostAddress());
 			    }
 			}
-			/* TEST */
+			 TEST */
 			
 			
 			/** Uruchomienie watku obslugujacego uzytkownika */
