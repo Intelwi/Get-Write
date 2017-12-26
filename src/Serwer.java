@@ -9,7 +9,7 @@ import java.util.Scanner;
 /** Klasa odpowiedzialna za dzialane strony serwera */
 public class Serwer extends Thread 
 {		
-		/** Maxymalna dopuszczalna liczba watkow */
+		/** Maksymalna dopuszczalna liczba watkow */
 		static final int MAXSIZE = 15;
 	
 		/** Lista klientow serwera */
