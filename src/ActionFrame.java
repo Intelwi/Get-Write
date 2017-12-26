@@ -1,10 +1,16 @@
-
-
 import javax.swing.*;
 
 import java.awt.EventQueue;
 
-/** Klasa uruchamiająca interfejs graficzny do logowania */
+/** 
+* Klasa uruchamiajaca interfejs graficzny do logowania
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
+
 public class ActionFrame extends JFrame 
 {
 	public ActionFrame() {

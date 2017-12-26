@@ -1,12 +1,16 @@
-
-
 import java.io.*; 
 import java.net.*; 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Scanner;
 
-/** Klasa odpowiedzialna za dzialane strony serwera */
+/** 
+*Klasa odpowiedzialna za dzialane strony serwera 
+ 
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
 public class Serwer extends Thread 
 {		
 		/** Maksymalna dopuszczalna liczba watkow */
@@ -305,7 +309,15 @@ public class Serwer extends Thread
 		}
 }
 
-/** Klasa odpowiedzialna za obsluge serwera przez uzytkownika */
+/** 
+* Klasa odpowiedzialna za obsluge serwera przez uzytkownika
+ 
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
+
 class SerwerMenu extends Thread 
 {
 	/** Obsluga serwera z konsoli */

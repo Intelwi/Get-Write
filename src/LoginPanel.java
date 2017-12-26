@@ -1,13 +1,9 @@
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.net.SocketException;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,8 +11,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/** 
+* Klasa odpowedzialna za interfejs graficzny do logowania
 
-/** Klasa odpowedzialna za interfejs graficzny do logowania */
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
+
 public class LoginPanel extends JPanel implements ActionListener, KeyListener
 {
 

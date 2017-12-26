@@ -1,7 +1,15 @@
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/** Klasa odpowiedzialna za zarzadzanie interfejsem graficznym po stronie klienta */
+/** 
+* Klasa odpowiedzialna za zarzadzanie interfejsem graficznym po stronie klienta 
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
+
 public class View 
 {
 	/** Referencja do obiektu klasy Klient */

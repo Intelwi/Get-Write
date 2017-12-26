@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,6 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+/** 
+* Klasa odpowedzialna za interfejs graficzny do wysylania i odbierania wiadomosci
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
 
 public class MessPanel extends JPanel
 {

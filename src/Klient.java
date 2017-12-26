@@ -1,10 +1,14 @@
-
-
-
 import java.io.*;
 import java.net.*;
 
-/** Klasa odpowiedzialna za strone kliencka */
+/** 
+* Klasa odpowiedzialna za strone kliencka 
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
 public class Klient extends Thread 
 {
 

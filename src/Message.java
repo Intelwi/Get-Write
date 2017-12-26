@@ -1,8 +1,15 @@
 
-
 import java.io.Serializable;
 
-/** Klasa ktorej obiekty (wiadomosci) sa przesylane miedzy klientem a serwerem */
+/** 
+* Klasa ktorej obiekty (wiadomosci) sa przesylane miedzy klientem a serwerem 
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
+
 public class Message implements Serializable 
 {
 	private static final long serialVersionUID = 1L;

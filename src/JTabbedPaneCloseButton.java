@@ -3,7 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/** Klasa tworzaca panel z zkladkami mozliwymi do zamkniecia */
+/** 
+* Klasa tworzaca panel z zkladkami mozliwymi do zamkniecia 
+
+* @version 1.0
+
+* @author Michal Stolarz
+
+*/
 public class JTabbedPaneCloseButton extends JTabbedPane {
 
 	/** Referencja klasy na sama siebie dla klasy anonimowej (implementacja interfejsu ActionListener dla przycisku) */
