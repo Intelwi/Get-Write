@@ -145,7 +145,7 @@ public class View
 	}
 	
 	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient jest juz ustawiony w karcie Start) 
-	 * @param	msg	odebrana wiadomosc (od innego serwera)
+	 * @param	msg	odebrana wiadomosc (od innego klienta)
 	 * @param	listMsg	ostatnia wiadomosc od serwera zawierajaca liste z klientami
 	 */
 	public void updateCreateNewTab(Message msg, Message listMsg) 
