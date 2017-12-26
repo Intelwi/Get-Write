@@ -10,7 +10,6 @@ import java.awt.EventQueue;
 * @author Michal Stolarz
 
 */
-
 public class ActionFrame extends JFrame 
 {
 	/** Tworzy glowna ramke okna intefrejsu graficznego */
