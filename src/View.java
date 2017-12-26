@@ -21,6 +21,9 @@ public class View
 	/** Referencja do panelu zakladek */
 	private JTabbedPaneCloseButton tabbedPane;
 	
+	/** Tworzy obiekt zarzadzajacy interfejsem graficznym
+	 * @param	frame	referencja na ramke okna interfejsu graficznego  
+	 */
 	View(ActionFrame frame)
 	{
 		this.frame = frame;
@@ -30,7 +33,9 @@ public class View
 		(this.frame).getContentPane().add(tabbedPane);
 	}
 	
-	/** Dodanie referencji na obiekt typu Klient (kotroler aplikacji obslugujacej klienta) */
+	/** Dodanie referencji na obiekt typu Klient (kotroler aplikacji obslugujacej klienta)
+	 * @param	klient	referencja na obiekt typu Klient 
+	 */
 	public void setKlient(Klient klient)
 	{
 		this.klient = klient;
@@ -43,7 +48,9 @@ public class View
 		tabbedPane.addTabNoExit(MessPanel.getNameFirst(), new MessPanel(klient, frame, this));
 	}
 	
-	/** Dodanie nowej zakladki z nowym panelem z przyciskiem zamkniecia karty */
+	/** Dodanie nowej zakladki z nowym panelem z przyciskiem zamkniecia karty 
+	 * @param	targetClient	login klienta z ktorym prowadzona jest konwersacja
+	 */
 	public void addPanel(String targetClient)
 	{
 		MessPanel messPanel = new MessPanel(klient, frame, this);
@@ -51,7 +58,10 @@ public class View
 		tabbedPane.add(targetClient, messPanel);
 	}
 	
-	/** Sprawdza czy karta (typu MessPanel) z podanym targetClient (argument) - klientem docelowym juz istnieje */
+	/** Sprawdza czy karta (typu MessPanel) z podanym targetClient juz istnieje 
+	 * @param	targetClient	login klienta z ktorym prowadzona jest konwersacja
+	 * @return	jesli karta z podanym targetClient juz istnieje to zwraca true, jesli nie to false	
+	 */
 	public boolean isOnTheList(String targetClient)
 	{
 		for(int i = 0; i < tabbedPane.getTabCount(); i++)
@@ -61,8 +71,11 @@ public class View
 		return false;
 	}
 	
-	/** Tworzenie listy przyciskow z klientami i wyswietlenie */
-	public void createButtontList(Message msg) throws IndexOutOfBoundsException, NullPointerException
+	/** Tworzenie listy przyciskow z klientami i wyswietlenie 
+	 * @param	msg	odebrana wiadomosc zawierajaca liste klientow
+	 * @throws	NullPointerException	gdy obiekt msg, albo wiadomosci tekstowej w msg nie jest zainicjalizowany
+	 */
+	public void createButtontList(Message msg) throws NullPointerException
 	{
 		/** Iterowanie po kolejnych interfejsach graficznych */
 		for(int i = 0; i < tabbedPane.getTabCount(); i++)
@@ -72,7 +85,9 @@ public class View
 		}
 	}
 	
-	/** Powiadomienie uzytkownika interfejsu o braku Klienta do ktorego wysylana jest wiadomosc przez nadpisanie label'a */
+	/** Powiadomienie uzytkownika interfejsu o braku Klienta do ktorego wysylana jest wiadomosc przez nadpisanie etykiety informacyjnej
+	 * @param	msg	odebrana wiadomosc od serwera z powiadomieniem o braku danego klienta	
+	 */
 	public void informUser(Message msg) 
 	{
 		/** Iterowanie po kolejnych interfejsach graficznych */
@@ -104,7 +119,10 @@ public class View
 		}
 	}
 	
-	/** Sprawdzenie czy istnieje interfejs graficzny do klienta od ktorego przyszla wiadomosc (jesli tak to zaladowanie nowego targetClient)*/
+	/** Sprawdzenie czy istnieje interfejs graficzny do klienta od ktorego przyszla wiadomosc 
+	 * @param	msg	odebrana wiadomosc (od innego klienta)
+	 * @return	jesli na liscie jest juz panel do danego klienta (ktory wyslal msg) zwraca true, jesli nie to false
+	 */
 	public boolean isPanel(Message msg)
 	{ 
 		/** Iterowanie po kolejnych interfejsach graficznych */
@@ -126,7 +144,10 @@ public class View
 		return false;
 	}
 	
-	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient jest juz ustawiony w karcie Start) */
+	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient jest juz ustawiony w karcie Start) 
+	 * @param	msg	odebrana wiadomosc (od innego serwera)
+	 * @param	listMsg	ostatnia wiadomosc od serwera zawierajaca liste z klientami
+	 */
 	public void updateCreateNewTab(Message msg, Message listMsg) 
 	{
 		/** Gdy otwarta jedna karta, ale nie ma zdefiniowanego targetClient (targetClient jest wypelnione przez defaultStr) */

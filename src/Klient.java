@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 /** 
-* Klasa odpowiedzialna za obsulge interfejsow graficznych, odbieranie i wysylanie wiadomosci
+* Klasa odpowiedzialna za obsulge interfejsu graficznego, odbieranie i wysylanie wiadomosci
 
 * @version 1.0
 
@@ -31,11 +31,12 @@ public class Klient extends Thread
 		private Message listMsg;
 		
 		/** 
-		* Tworzy obiekt obslugujacy interfejsy graficzne, odbierajacy i wysylajacy wiadomosci
+		* Tworzy obiekt obslugujacy interfejs graficzny, odbierajacy i wysylajacy wiadomosci
 		* @param	host	nazwa/IP serwera
         * @param	port	numer portu polaczenia z serwerem
         * @param	login1	login klienta
-        * @param	view	referencja na obiekt zarzadzajacy calym interfejsem graficznym
+        * @param	view	referencja na obiekt zarzadzajacy interfejsem graficznym
+        * @throws	IOException	jesli strumieni nie uda sie zainicjalizowac/wtyczka nieaktywna	
         * */
 		public Klient(String host, int port, String login1, View view) throws IOException
 		{
@@ -63,6 +64,7 @@ public class Klient extends Thread
 		
 		/** Wyslanie wiadomosci 
 		 * @param	msg	wiadomosc do wyslania
+		 * @throws	Exception	jesli nie uda sie wyslac wiadomosci przez strumien
 		 */
 		private void send(Message msg) throws Exception
 		{
@@ -70,7 +72,9 @@ public class Klient extends Thread
 			oos.flush();
 		}
 		
-		/** Wylaczenie klienta */
+		/** Wylaczenie klienta 
+		 * @throws	Exception	gdy strumienie sa nieaktywne 
+		 */
 		public void closeKlient() throws Exception
 		{
 			/** Zamkniecie strumienia wejscia */
@@ -86,6 +90,8 @@ public class Klient extends Thread
 		
 		/** Odebranie wiadomosci 
 		 * @return	wiadomosc odebrana od serwera
+		 * @throws	ClassNotFoundException	jesli nie odnaleziono odpowiedniego typu klasy
+		 * @throws	IOException	jesli nie uda sie odebrac wiadomosci (strumien nieczynny)
 		 */
 		public Message getMsg() throws ClassNotFoundException, IOException
 		{
@@ -95,6 +101,7 @@ public class Klient extends Thread
 		/** Utworzenie i wyslanie wiadomosci 
 		 * @param	targetClient	logn klienta do ktorego wysylana jest wiadomosc
 		 * @param	text	wiadomosc tekstowa ktora ma byc wyslana do drugiego klienta
+		 * @throws	Exception	jesli nie uda sie wyslac wiadomosci przez strumien
 		 */			
 		public void createSendMessage(String targetClient, String text) throws Exception
 		{

@@ -96,13 +96,17 @@ public class MessPanel extends JPanel
 	 /** Etykieta karty w ktorej bedzie znajdowac sie panel */
 	 private JLabel name;
 	 
-	 /** Klasa tylko do pobrania defaultStr */
+	 /** Tworzy obiekt tylko do pobrania defaultStr */
 	 public MessPanel()
 		{
 			super();
 		}
 	 
-	/** Klasa z panelem obslugi wysylania i odbierania wiadomosci */
+	/** Tworzy obiekt z panelem obslugi wysylania i odbierania wiadomosci 
+	 * @param	klient	referencja na obiekt typu Klient 
+	 * @param	frame	referencja na obiekt ramki interfejsu graficznego
+	 * @param	view	referencja na obiekt zarzadzajacy interfejsem graficznym
+	 */
 	public MessPanel(Klient klient, ActionFrame frame, View view)
 	{
 		super();
@@ -177,20 +181,13 @@ public class MessPanel extends JPanel
 		inText.addKeyListener(new KeyListener() 
         {
 			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void keyTyped(KeyEvent e) {}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void keyPressed(KeyEvent e) {}
 
-			@Override
-			
 			/** Ustawienie ENTER do wysylania wiadomosci (dopiero po puszczeniu ENTER) */
+			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
@@ -311,43 +308,57 @@ public class MessPanel extends JPanel
 		add(listPanelSurround);
 	}
 	
-	/** Pobranie nazwy pierwszej karty */
+	/** Pobranie nazwy pierwszej karty 
+	 * @return	tytul pierwszej, startowej zakladki karty 
+	 */
 	public static String getNameFirst()
 	{
 		return MessPanel.firstName;
 	}
 	
-	/** Pobranie informacji z Label'a z informacjami o targetClient */
+	/** Pobranie informacji z etykiety informacyjnej z informacjami o targetClient
+	 * @return	login klienta z ktorym jest prowadzona konwersacja 
+	 */
 	public String getTargetClientL()
 	{
 		return targetClientL.getText();
 	}
 	
-	/** Zainicjowanie referencji do label'a z nazwa karty w ktorej znajduje sie panel */
+	/** Zainicjowanie referencji do etykiety informacyjnej z nazwa karty w ktorej znajduje sie panel
+	 * @param	name	etykieta informacyjna z nazwa klienta z ktorym prowadzona jest rozmowa
+	 */
 	public void setName(JLabel name)
 	{
 		this.name = name;
 	}
 	
-	/** Pobranie domyslnej zawartosci pola targetClient(defaultStr) */
+	/** Pobranie domyslnej zawartosci pola targetClient(defaultStr) 
+	 * @return zawartosc pola defaultStr
+	 */
 	public String getDefaultStr()
 	{
 		return defaultStr;
 	}
 	
-	/** Pobranie domyslnej zawartosci pola targetClient(defaultStr1) */
+	/** Pobranie domyslnej zawartosci pola targetClient(defaultStr1) 
+	 * @return	zawartosc pola defaultStr1 
+	 */
 	public String getDefaultStr1()
 	{
 		return defaultStr1;
 	}
 	
-	/** Pobranie nazwy docelowego odbiorcy wiadomosci */
+	/** Pobranie nazwy docelowego odbiorcy wiadomosci 
+	 * @return	login klienta z ktorym prowadzona jest rozmowa 
+	 */
 	public String getTargetClient()
 	{
 		return targetClient;
 	}
 	
-	/** Ustawienie docelowego odbiorcy wiadomosci */
+	/** Ustawienie docelowego odbiorcy wiadomosci 
+	 * @param	targetClient	login klienta z ktorym prowadzona jest rozmowa
+	 */
 	public void setTargetClient(String targetClient)
 	{
 		this.targetClient = targetClient;
@@ -356,7 +367,9 @@ public class MessPanel extends JPanel
 		(this.targetClientL).setText("To: " + targetClient);
 	}
 	
-	/** Ustawienie powiadomienia dla klienta od serwera */
+	/** Ustawienie powiadomienia dla klienta od serwera 
+	 * @param	msg	odebrana wiadomosc
+	 */
 	public void setInfo(Message msg)
 	{
 		this.targetClient = defaultStr1;
@@ -368,8 +381,11 @@ public class MessPanel extends JPanel
 		(this.targetClientL).setText("To:");
 	}
 	
-	/** Tworzenie listy przyciskow z klientami i wyswietlenie */
-	public void createButtontList(Message msg) throws IndexOutOfBoundsException, NullPointerException
+	/** Tworzenie listy przyciskow z klientami i wyswietlenie 
+	 * @param	msg	odebrana wiadomosc
+	 * @throws	NullPointerException	gdy obiekt wiadomosci tekstowej obiektu msg nie jest zainicjalizowany 
+	 */
+	public void createButtontList(Message msg) throws NullPointerException
 	{
 		/** Wyczyszczenie panelu */
 		listPanel.removeAll();
@@ -476,27 +492,35 @@ public class MessPanel extends JPanel
 		
 	}
 	
-	/** Dodanie wiadomosci w ramce z tekstem */
+	/** Dodanie wiadomosci w ramce z tekstem 
+	 * @param	message	wiadomosc ktora ma by dodana w polu tekstowym
+	 * */
 	public void addText(Message message)
 	{
 		outText.append(message.getAdresat() + ": " + message.getMessagetxt() + "\n");
 		
 	}
 	
-	/** Dodanie wiadomosci w ramce z tekstem */
+	/** Dodanie wiadomosci w ramce z tekstem 
+	 * @param	text	tekst ktory ma byc dodany w polu tekstowym 
+	 */
 	public void addText(String text)
 	{
 		outText.append(text + "\n");
 		
 	}
 	
-	/** Wstawienie nowej wiadomosci w ramce z tekstem */
+	/** Wstawienie nowej wiadomosci w ramce z tekstem 
+	 * @param	message	wiadomosc ktora ma zostac zamieszczona w polu tekstowym
+	 */
 	public void setText(Message message)
 	{
 		outText.setText(message.getAdresat()+": "+message.getMessagetxt() + "\n");//juz obsluzone jesli message.getMessagetxt() jest puste
 	}
 	
-	/** Wstawienie nowej wiadomosci w ramce z tekstem */
+	/** Wstawienie nowej wiadomosci w ramce z tekstem 
+	 * @param	text	 tekst ktory ma zostac zamieszczony w polu tekstowym
+	 */
 	public void setText(String text)
 	{
 		/** Jesli text nie jest pusty nalezy dodac znak nowej linii */
@@ -512,8 +536,12 @@ public class MessPanel extends JPanel
 		}
 	}
 	
-	/** Metoda do wycinania nadmiarowego znaku nowej linii powstalego przy zatwierdzaniu zmian przez klawisz ENTER */
-	public String cutNewLine(String str) {
+	/** Metoda do wycinania nadmiarowego znaku nowej linii powstalego przy zatwierdzaniu zmian przez klawisz ENTER 
+	 * @param	str	tekst w ktorym ma zostac obciety nadmiarowy znak nowej linii
+	 * @return	tekst powstaly po obcieciu nadmiarowego znaku nowej linii
+	 */
+	public String cutNewLine(String str) 
+	{
 	    if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == '\n') {
 	        str = str.substring(0, str.length() - 1);
 	    }

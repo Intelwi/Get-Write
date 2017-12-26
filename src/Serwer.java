@@ -32,7 +32,7 @@ public class Serwer extends Thread
 			}
 		}
 		
-		/** Klient z ktorym sie polaczono */
+		/** Wtyczka do klienta z ktorym sie polaczono */
 		private Socket socket1; 
 		
 		/** Strumien do odbioru (deserializacji) */
@@ -47,6 +47,11 @@ public class Serwer extends Thread
 		/** Flaga oznaczajaca czy obiekt nadaje sie do uzycia */
 		boolean isUsable;
 		
+		/** Tworzy obiekt z watkiem obslugjacym jednego klienta
+		 * @param s	wtyczka do klienta z ktorym sie polaczono
+		 * @throws IOException	jesli strumieni nie uda sie zainicjalizowac/wtyczka nieaktywna
+		 * @throws ClassNotFoundException	jesli nie odnaleziono odpowiedniego typu klasy
+		 */
 		public Serwer (Socket s) throws IOException, ClassNotFoundException 
 		{
 			/** Domyslnie obiekt jest zdatny do uzycia */
@@ -79,7 +84,9 @@ public class Serwer extends Thread
 			}
 		}
 		
-		/** Metoda sprawdzajaca czy Serwer przyjal maksymalna liczbe Klientow */
+		/** Metoda sprawdzajaca czy Serwer przyjal maksymalna liczbe klientow 
+		 * @return	true jesli serwer przyjal maksymalna liczbe klientow, false w przeciwnym razie 
+		 */
 		static public boolean isFull()
 		{
 			/** Sprawdzenie czy lista osiagnela teoretyczny maksymalny rozmiar */
@@ -90,14 +97,19 @@ public class Serwer extends Thread
 			else return false;
 		}
 		
-		/** Metoda wysylajaca wiadomosc do Klienta */
+		/** Metoda wysylajaca wiadomosc do Klienta 
+		 * @param	message	wiadomosc ktora ma zostac wyslana
+		 * @throws Exception	jesli nie uda sie wyslac wiadomosci przez strumien
+		 */
 		public void sendMsg(Message message) throws Exception
 		{
 			oos.writeObject(message);
 			oos.flush();
 		}
 		
-		/** Metoda wysylajaca liste Klientow do Klienta */
+		/** Metoda wysylajaca liste Klientow do Klienta 
+		 * @throws Exception	jesli nie uda sie wyslac wiadomosci przez strumien
+		 */
 		public void sendList() throws Exception
 		{
 			ArrayList<Serwer> clients3 = clients;
@@ -116,19 +128,27 @@ public class Serwer extends Thread
 			oos.flush();
 		}
 		
-		/** Metoda odbierajaca wiadomosc od Klienta */
+		/** Metoda odbierajaca wiadomosc od Klienta 
+		 * @return	odebrana wiadomosc
+		 * @throws	ClassNotFoundException	jesli nie odnaleziono odpowiedniego typu klasy
+		 * @throws	IOException	jesli nie uda sie odebrac wiadomosci (strumien nieczynny)
+		 * */
 		public Message getMsg() throws ClassNotFoundException, IOException
 		{
 			return (Message)ois.readObject();
 		}
 		
-		/** Metoda podajaca login Klienta */
-		public String getLogin() throws ClassNotFoundException, IOException
+		/** Metoda podajaca login Klienta 
+		 * @return	login klienta obslugiwanego przez dany watek
+		 */
+		public String getLogin()
 		{
 			return login;
 		}
 		
-		/** Metoda Znajdująca odlaczonego klienta i usuwajac go */
+		/** Metoda znajdujaca odlaczonego klienta i usuwajaca go
+		 * @throws	Exception	gdy strumienie sa nieaktywne
+		 */
 		public void findAndDelete() throws Exception
 		{
 				/** Zamkniecie strumienia wejscia */
@@ -159,7 +179,7 @@ public class Serwer extends Thread
 				}
 		}
 		
-		/** Metoda - watek */
+		/** Metoda (watek) serwera obslugujaca danego klienta */
 		public void run() 
 		{
 			try
@@ -320,7 +340,7 @@ public class Serwer extends Thread
 
 class SerwerMenu extends Thread 
 {
-	/** Obsluga serwera z konsoli */
+	/** Metoda (watek) do obslugi serwera z konsoli */
 	public void run()
 	{ 
 		/** Scanner do odbierania komend */
