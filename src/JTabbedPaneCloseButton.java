@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /** 
-* Klasa tworzaca panel z zkladkami mozliwymi do zamkniecia 
+* Klasa tworzaca panel z zakladkami mozliwymi do zamkniecia 
 
 * @version 1.0
 
@@ -16,12 +16,19 @@ public class JTabbedPaneCloseButton extends JTabbedPane {
 	/** Referencja klasy na sama siebie dla klasy anonimowej (implementacja interfejsu ActionListener dla przycisku) */
 	private JTabbedPaneCloseButton closePane;
 	
+	/** Tworzy panel z zakladkami mozliwymi do zamkniecia */
     public JTabbedPaneCloseButton() {
         super();
         this.closePane = this;
     }
     
-    /** Metoda dodajaca karte z przyciskiem wylaczenia (component - zawartosc interfejsu komunikatora) */
+    /** 
+     * Metoda dodajaca karte z przyciskiem wylaczenia
+     * @param	title	tytul zakladki karty
+     * @param	icon	ikona zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     * @param	tip	 tekst dymku wyswietlanego po najechaniu na zakladke
+     */
     @Override
     public void addTab(String title, Icon icon, Component component, String tip) {
         super.addTab(title, icon, component, tip);
@@ -29,39 +36,63 @@ public class JTabbedPaneCloseButton extends JTabbedPane {
         setTabComponentAt(count, new CloseButtonTab(component, title, icon));
     }
     
-    /** Metoda dodajaca karte z przyciskiem wylaczenia */
+    /** Metoda dodajaca karte z przyciskiem wylaczenia 
+     * @param	title	tytul zakladki karty
+     * @param	icon	ikona zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     */
     @Override
     public void addTab(String title, Icon icon, Component component) {
         addTab(title, icon, component, null);
     }
 
-    /** Metoda dodajaca karte z przyciskiem wylaczenia */
+    /** Metoda dodajaca karte z przyciskiem wylaczenia 
+     * @param	title	tytul zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     */
     @Override
     public void addTab(String title, Component component) {
         addTab(title, null, component);
     }
 
-    /** Metoda dodajaca karte bez przycisku wylaczenia (component - zawartosc interfejsu komunikatora) */
+    /** Metoda dodajaca karte bez przycisku wylaczenia
+     * @param	title	tytul zakladki karty
+     * @param	icon	ikona zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     * @param	tip	 tekst dymku wyswietlanego po najechaniu na zakladke
+     */
     public void addTabNoExit(String title, Icon icon, Component component, String tip) {
         super.addTab(title, icon, component, tip);
     }
 
-    /** Metoda dodajaca karte bez przycisku wylaczenia */
+    /** Metoda dodajaca karte bez przycisku wylaczenia 
+     * @param	title	tytul zakladki karty
+     * @param	icon	ikona zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     */
     public void addTabNoExit(String title, Icon icon, Component component) {
         addTabNoExit(title, icon, component, null);
     }
 
-    /** Metoda dodajaca karte bez przycisku wylaczenia */
+    /** Metoda dodajaca karte bez przycisku wylaczenia  
+     * @param	title	tytul zakladki karty
+     * @param	component	komponent bedacy zawartoscia karty
+     */
     public void addTabNoExit(String title, Component component) {
         addTabNoExit(title, null, component);
     }
 
-    /** Panel z przyciskiem i label'em z napisem */
+    /** Panel z przyciskiem i label'em do zamieszczenia w tytule zakladki */
     public class CloseButtonTab extends JPanel {
     	
     	/** Panel z zawartosca interfejsu komunikatora */
         private Component tab;
 
+        /** Tworzy panel z przyciskiem i label'em 
+         * @param	tab	komponent bedacy zawartoscia zakladki karty
+         * @param	title	tytul zakladki karty
+         * @param	icon	ikona zakladki karty
+         */
         public CloseButtonTab(final Component tab, String title, Icon icon) {
             this.tab = tab;
             setOpaque(false);

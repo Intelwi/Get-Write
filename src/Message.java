@@ -9,7 +9,6 @@ import java.io.Serializable;
 * @author Michal Stolarz
 
 */
-
 public class Message implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +22,9 @@ public class Message implements Serializable
 	/** Pole z trescia wiadomosci */
 	private String messagetxt;
 	
+	/** Tworzy wiadomosc w formie obiektu Message
+	 * @param	messagetxt	tekstowa tresc wiadomosci
+	 */
 	public Message(String messagetxt)
 	{
 		this.messagetxt = messagetxt;
@@ -30,6 +32,11 @@ public class Message implements Serializable
 		this.targetClient = new String();
 	}
 	
+	/** Tworzy wiadomosc w formie obiektu Message
+	 * @param	targetClient	login klienta do ktorego ma byc wyslana wiadomosc
+	 * @param	messagetxt	tekstowa tresc wiadomosci
+	 * @param	adresat	login klienta ktory wysyla wiadomosc
+	 */
 	public Message(String targetClient, String messagetxt, String adresat)
 	{
 		this.targetClient = targetClient;
@@ -38,6 +45,9 @@ public class Message implements Serializable
 		
 	}
 	
+	/** Tworzy wiadomosc w formie obiektu Message
+	 * @param	msg	referencja na obiekt zwierajacy juz gotowa wiadomosc
+	 */
 	public Message(Message msg)
 	{
 		targetClient = msg.targetClient;
@@ -45,43 +55,57 @@ public class Message implements Serializable
 		adresat = msg.adresat;
 	}
 	
-	/** Zaladowanie referencji na nazwe docelowego odbiorcy wiadomosci */
+	/** Zaladowanie referencji na nazwe docelowego odbiorcy wiadomosci
+	 * @param	targetClient	login klienta do ktorego ma byc wyslana wiadomosc
+	 */
 	public void setTarget(String targetClient)
 	{
 		this.targetClient = targetClient;
 	}
 	
-	/** Pobranie referencji na docelowego odbiorce wiadomosci */
+	/** Pobranie referencji na docelowego odbiorce wiadomosci 
+	 * @return	login klienta do ktorego ma byc wyslana wiadomosc
+	 */
 	public String getTarget()
 	{
 		return targetClient;
 	}
 	
-	/** Zaladowanie referencji na tresc wiadomosci */
+	/** Zaladowanie referencji na tresc wiadomosci 
+	 * @param	messagetxt	tekstowa tresc wiadomosci 
+	 */
 	public void setMessagetxt(String messagetxt)
 	{
 		this.messagetxt = messagetxt;
 	}
 	
-	/** Pobranie referencji na tresc wiadomosci */
+	/** Pobranie referencji na tresc wiadomosci 
+	 * @return	tekstowa tresc wiadomosci
+	 */
 	public String getMessagetxt()
 	{
 		return messagetxt;
 	}
 
-	/** Zaladowanie referencji na nazwe adresata wiadomosci */
+	/** Zaladowanie referencji na nazwe adresata wiadomosci 
+	 * @param	adresat	login klienta ktory wysyla wiadomosc
+	 */
 	public void setAdresat(String adresat)
 	{
 		this.adresat = adresat;
 	}
 	
-	/** Pobranie referencji na nazwe adresata wiadomosci */
+	/** Pobranie referencji na nazwe adresata wiadomosci 
+	 * @return	login klienta ktory wysyla wiadomosc 
+	 */
 	public String getAdresat()
 	{
 		return adresat;
 	}
 	
-	/** Metoda wskazujaca czy wiadomosc zawiera nazwe docelowego odbiorcy wiadomosci (true - nie zawiera, false - zawiera) */
+	/** Metoda wskazujaca czy wiadomosc zawiera nazwe docelowego odbiorcy wiadomosci 
+	 * @return	wskazanie czy wiadomosc zawiera nazwe docelowego odbiorcy wiadomosci (true - nie zawiera, false - zawiera) 
+	 */
 	public boolean noTarget()//zwraca 1 gdy nie ma targetclient
 	{
 		return targetClient.isEmpty();

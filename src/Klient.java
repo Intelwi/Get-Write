@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 /** 
-* Klasa odpowiedzialna za strone kliencka 
+* Klasa odpowiedzialna za obsulge interfejsow graficznych, odbieranie i wysylanie wiadomosci
 
 * @version 1.0
 
@@ -30,6 +30,13 @@ public class Klient extends Thread
 		/** Aktualna Wiadomosc od serwera z lista dostepnych klientow */
 		private Message listMsg;
 		
+		/** 
+		* Tworzy obiekt obslugujacy interfejsy graficzne, odbierajacy i wysylajacy wiadomosci
+		* @param	host	nazwa/IP serwera
+        * @param	port	numer portu polaczenia z serwerem
+        * @param	login1	login klienta
+        * @param	view	referencja na obiekt zarzadzajacy calym interfejsem graficznym
+        * */
 		public Klient(String host, int port, String login1, View view) throws IOException
 		{
 			listMsg = new Message("");
@@ -46,13 +53,17 @@ public class Klient extends Thread
 			oos.flush();
 		}
 		
-		/** Pobranie wiadomosci z lista Klientow */
+		/** Pobranie wiadomosci z lista Klientow
+		 * @return	najnowsza odebrana wiadomosc (od serwera) z lista klientow 
+		 */
 		public Message getListMsg()
 		{
 			return listMsg;
 		}
 		
-		/** Wyslanie wiadomosci */
+		/** Wyslanie wiadomosci 
+		 * @param	msg	wiadomosc do wyslania
+		 */
 		private void send(Message msg) throws Exception
 		{
 			oos.writeObject(msg);
@@ -73,13 +84,18 @@ public class Klient extends Thread
 		}
 		
 		
-		/** Odebranie wiadomosci */
+		/** Odebranie wiadomosci 
+		 * @return	wiadomosc odebrana od serwera
+		 */
 		public Message getMsg() throws ClassNotFoundException, IOException
 		{
 			return (Message)ois.readObject();
 		}
 					
-		/** Utworzenie i wyslanie wiadomosci */			
+		/** Utworzenie i wyslanie wiadomosci 
+		 * @param	targetClient	logn klienta do ktorego wysylana jest wiadomosc
+		 * @param	text	wiadomosc tekstowa ktora ma byc wyslana do drugiego klienta
+		 */			
 		public void createSendMessage(String targetClient, String text) throws Exception
 		{
 			/** Utworzenie wiadomosci */
@@ -89,13 +105,15 @@ public class Klient extends Thread
 			send(message);			
 		}
 		
-		/** Pobieranie loginu od Klienta */
+		/** Pobieranie loginu od Klienta 
+		 * @return	login klienta
+		 */
 		public String getLogin()
 		{
 			return login;
 		}
 		
-		/** Metoda - watek */
+		/** Watek obslugujacy odbieranie wiadomosci od serwera */
 		public void run() 
 		{
 			/** Flaga oznaczajaca czy wykonywany jest aktualnie pierwszy obieg petli */

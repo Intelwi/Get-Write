@@ -47,9 +47,13 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 	/** Etykieta informacyjna (do podania nazwy serwera) */
 	private JLabel serwerLabel;
 	
+	/** Tworzy panel interfejsu graficznego do logowania 
+	 * @param	frame	referencja na okno interfejsu graficznego
+	 */
 	public LoginPanel(ActionFrame frame)
 	{
 		super();
+		
 		/** Inicjalizacja własciwosci obiektu */
 		this.frame = frame;
 		logField = new JTextField();
@@ -170,7 +174,9 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 			});
 	}
 	
-	/** Obsluga zdarzenia przycisku logowania */
+	/** Obsluga zdarzenia przycisku logowania 
+	 * @param	e	zdarzenie wywolane wcisnieciem przycisku do logowania
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		/** Wykrycie zdarzenia */
@@ -182,9 +188,10 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 		}
     }
 
+	/** Obsluga zdarzenia wywolanego puszczeniem klawisza ENTER (logowanie)
+	 * @param	e	zdarzenie klawisza ENTER
+	 */
 	@Override
-	
-	/** Obsluga zdarzenia klawisza ENTER (logowanie) */
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
@@ -194,15 +201,15 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 		
 	}
 	
+	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza ENTER
+	 * @param	e	zdarzenie klawisza ENTER
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
+	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza ENTER
+	 * @param	e	zdarzenie klawisza ENTER
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}	
+	public void keyPressed(KeyEvent e) {}	
 }

@@ -13,6 +13,7 @@ import java.awt.EventQueue;
 
 public class ActionFrame extends JFrame 
 {
+	/** Tworzy glowna ramke okna intefrejsu graficznego */
 	public ActionFrame() {
 		super("Get&Write");
 		
