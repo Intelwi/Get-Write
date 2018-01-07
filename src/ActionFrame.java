@@ -22,6 +22,7 @@ public class ActionFrame extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
+		setResizable(false);
 		
 	}
 	
