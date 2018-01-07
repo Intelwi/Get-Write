@@ -154,11 +154,7 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 				    	frame.validate();
 				    	
 				    	/** Uruchomienie watku Klienta odbierajacego informacje */
-				    	SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-								klient.start();
-							}
-						});
+						klient.start();
 					} 
 					
 			    	catch (IOException e) 
