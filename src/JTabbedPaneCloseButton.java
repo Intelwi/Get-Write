@@ -82,14 +82,14 @@ public class JTabbedPaneCloseButton extends JTabbedPane {
         addTabNoExit(title, null, component);
     }
 
-    /** Panel z przyciskiem i label'em do zamieszczenia w tytule zakladki */
+    /** Klasa panelu z przyciskiem i label'em do zamieszczenia w tytule zakladki */
     public class CloseButtonTab extends JPanel {
     	
     	/** Panel z zawartosca interfejsu komunikatora */
         private Component tab;
 
-        /** Tworzy panel z przyciskiem i label'em 
-         * @param	tab	komponent bedacy zawartoscia zakladki karty
+        /** Tworzy panel z zakladka z przyciskiem i label'em
+         * @param	tab	komponent bedacy zawartoscia karty
          * @param	title	tytul zakladki karty
          * @param	icon	ikona zakladki karty
          */
@@ -103,7 +103,7 @@ public class JTabbedPaneCloseButton extends JTabbedPane {
             add(jLabel);
             
             /** Zapisanie referencji do label'a z nazwa karty */
-            ((MessPanel)tab).setName(jLabel);//moze lagowac
+            ((MessPanel)tab).setName(jLabel);
             
             JButton button = new JButton("x");
             button.setBackground(new Color(245, 116, 97));

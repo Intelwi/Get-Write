@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 
 /** 
-* Klasa odpowiedzialna za obsulge interfejsu graficznego, odbieranie i wysylanie wiadomosci
+* Klasa odpowiedzialna za obsulge interfejsu graficznego, odbieranie i wysylanie wiadomosci (kontroler)
 
 * @version 1.0
 
@@ -18,7 +18,7 @@ public class Klient extends Thread
 		/** Strumien do odbierania danych */
 		private ObjectOutputStream oos;
 		
-		/** Strumien do wysyłania danych */
+		/** Strumien do wysylania danych */
 		private ObjectInputStream ois;
 		
 		/** Login Klienta */
@@ -27,7 +27,7 @@ public class Klient extends Thread
 		/** Referencja do interfejsu graficznego */
 		private View view;
 		
-		/** Aktualna Wiadomosc od serwera z lista dostepnych klientow */
+		/** Aktualna wiadomosc od serwera z lista dostepnych klientow */
 		private Message listMsg;
 		
 		/** 
@@ -54,8 +54,8 @@ public class Klient extends Thread
 			oos.flush();
 		}
 		
-		/** Pobranie wiadomosci z lista Klientow
-		 * @return	najnowsza odebrana wiadomosc (od serwera) z lista klientow 
+		/** Pobranie ostatniej wiadomosci z lista klientow
+		 * @return	ostatnia odebrana wiadomosc (od serwera) z lista klientow 
 		 */
 		public Message getListMsg()
 		{
@@ -112,7 +112,7 @@ public class Klient extends Thread
 			send(message);			
 		}
 		
-		/** Pobieranie loginu od Klienta 
+		/** Pobieranie loginu od klienta 
 		 * @return	login klienta
 		 */
 		public String getLogin()

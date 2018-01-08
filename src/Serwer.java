@@ -13,8 +13,8 @@ import java.util.Scanner;
 */
 public class Serwer extends Thread 
 {		
-		/** Maksymalna dopuszczalna liczba watkow */
-		static final int MAXSIZE = 15;
+		/** Maksymalna dopuszczalna liczba watkow (liczba obslugiwanych klientow) */
+		public static final int MAXSIZE = 15;
 	
 		/** Lista klientow serwera */
 		static ArrayList<Serwer> clients; 
@@ -41,13 +41,14 @@ public class Serwer extends Thread
 		/** Strumien do wysylania (serializacji) */
 		private ObjectOutputStream oos;
 		
-		/** Login Klienta obslugiwanego przez dany watek */
+		/** Login klienta obslugiwanego przez dany watek */
 		private String login;
 		
-		/** Flaga oznaczajaca czy obiekt nadaje sie do uzycia */
+		/** Flaga oznaczajaca czy obiekt nadaje sie do uzycia (nie nadaje sie gdy 
+		 * klient loguje sie pod loginem ktory juz istnieje na liscie) */
 		boolean isUsable;
 		
-		/** Tworzy obiekt z watkiem obslugjacym jednego klienta
+		/** Tworzy obiekt z watkiem obslugujacym jednego klienta
 		 * @param s	wtyczka do klienta z ktorym sie polaczono
 		 * @throws IOException	jesli strumieni nie uda sie zainicjalizowac/wtyczka nieaktywna
 		 * @throws ClassNotFoundException	jesli nie odnaleziono odpowiedniego typu klasy
@@ -97,7 +98,7 @@ public class Serwer extends Thread
 			else return false;
 		}
 		
-		/** Metoda wysylajaca wiadomosc do Klienta 
+		/** Metoda wysylajaca wiadomosc do klienta 
 		 * @param	message	wiadomosc ktora ma zostac wyslana
 		 * @throws Exception	jesli nie uda sie wyslac wiadomosci przez strumien
 		 */
@@ -146,7 +147,7 @@ public class Serwer extends Thread
 			return login;
 		}
 		
-		/** Metoda znajdujaca odlaczonego klienta i usuwajaca go
+		/** Metoda znajdujaca login odlaczonego klienta na liscie i usuwajaca go
 		 * @throws	Exception	gdy strumienie sa nieaktywne
 		 */
 		public void findAndDelete() throws Exception
@@ -179,7 +180,7 @@ public class Serwer extends Thread
 				}
 		}
 		
-		/** Metoda (watek) serwera obslugujaca danego klienta */
+		/** Metoda (watek) serwera obslugujaca danego klienta (przesylanie informacji) */
 		public void run() 
 		{
 			try
@@ -256,23 +257,6 @@ public class Serwer extends Thread
 			
 			/** Stworzenie klasy obslugujacej uzytkownika */
 			SerwerMenu serwerMenu = new SerwerMenu();
-			
-			/* TEST
-			System.out.println("Serwer turned on.\nIP Adress: ");
-						
-			Enumeration ef = NetworkInterface.getNetworkInterfaces();
-			while(ef.hasMoreElements())
-			{
-			    NetworkInterface n = (NetworkInterface) ef.nextElement();
-			    Enumeration ee = n.getInetAddresses();
-			    while (ee.hasMoreElements())
-			    {
-			        InetAddress i = (InetAddress) ee.nextElement();
-			        System.out.println(i.getHostAddress());
-			    }
-			}
-			 TEST */
-			
 			
 			/** Uruchomienie watku obslugujacego uzytkownika */
 			serwerMenu.start();

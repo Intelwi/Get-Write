@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 
 public class MessPanel extends JPanel
 {
-	/** Wyskosc okna do obslugi komunikatora */
+	/** Wysokosc okna do obslugi komunikatora */
 	public static final int HEIGHT = 550;
 	
 	/** Szerokosc okna do obslugi komunikatora */
@@ -39,13 +39,13 @@ public class MessPanel extends JPanel
 	/** Referencja do obiektu klasy Klient */
 	private Klient klient;
 	
-	/** Referencja do głownego okna JFrame */
+	/** Referencja do glownego okna JFrame */
 	private ActionFrame frame;
 	
 	/** Referencja na obiekt zarzadzajacy cala grafika */
 	private View view;
 	
-	/** Przycisk do wysłania wiadomosci */
+	/** Przycisk do wysylania wiadomosci */
 	private JButton inButton;
 	
 	/** Przycisk do wylogowania */
@@ -84,13 +84,13 @@ public class MessPanel extends JPanel
 	/** Etykieta informacyjna (nad lista klientow) */
 	private JLabel infoLabel3;
 	
-	/** Panel do wyswietlania listy dostepnych Klientow */
+	/** Panel do wyswietlania listy dostepnych klientow */
 	 private JPanel listPanel;
 	 
-	 /** Zawartosc targetClient na poczatku dzialania aplikacji lub gdy nie ma okreslonego istniejacego na liscie targetClient */
+	 /** Zawartosc targetClient na poczatku dzialania aplikacji */
 	 private final String defaultStr = new String("Target not defined"); 
 	 
-	 /** Zawartosc targetClient na poczatku dzialania aplikacji lub gdy nie ma okreslonego istniejacego na liscie targetClient */
+	 /** Zawartosc targetClient gdy nie ma wybranego, istniejacego na liscie klienta z ktorym sie komunikujemy */
 	 private final String defaultStr1 = new String("noTarget"); 
 	 
 	 /** Etykieta karty w ktorej bedzie znajdowac sie panel */
@@ -126,7 +126,7 @@ public class MessPanel extends JPanel
 		infoLabel1 = new JLabel("Income:");
 		infoLabel2 = new JLabel("Me:");
 		infoLabel3 = new JLabel("Available users:");
-		targetClient = new String(defaultStr1);//trzeba dac "noTarget" bo jak pusty to wywala indexoutofrangeexception
+		targetClient = new String(defaultStr1);
 		
 		/** Ustawienie sowakow dla pol tekstowych */
 		scrollPaneIn = new JScrollPane(inText);
@@ -180,9 +180,15 @@ public class MessPanel extends JPanel
 		/** Ustawienie odbiorcy akcji (JTextArea do wpisywania wiadomosci) wywolywanej przez ENTER (wysylanie wiadomosci) */
 		inText.addKeyListener(new KeyListener() 
         {
+			/** Obsluga zdarzenia wywolanego wcisnieciem klawisza
+			 * @param	e	zdarzenie klawisza
+			 */
 			@Override
 			public void keyTyped(KeyEvent e) {}
 
+			/** Obsluga zdarzenia wywolanego wcisnieciem klawisza
+			 * @param	e	zdarzenie klawisza
+			 */
 			@Override
 			public void keyPressed(KeyEvent e) {}
 
@@ -237,7 +243,7 @@ public class MessPanel extends JPanel
 					/** Znikniecie okna */
 					frame.setVisible(false);
 				 
-					/** Zkasowanie okna */
+					/** Skasowanie okna */
 					frame.dispose();
 					
 					/** Wylaczenie klienta */
@@ -316,7 +322,7 @@ public class MessPanel extends JPanel
 		return MessPanel.firstName;
 	}
 	
-	/** Pobranie informacji z etykiety informacyjnej z informacjami o targetClient
+	/** Pobranie informacji z etykiety informacyjnej o targetClient
 	 * @return	login klienta z ktorym jest prowadzona konwersacja 
 	 */
 	public String getTargetClientL()
@@ -367,7 +373,7 @@ public class MessPanel extends JPanel
 		(this.targetClientL).setText("To: " + targetClient);
 	}
 	
-	/** Ustawienie powiadomienia dla klienta od serwera 
+	/** Wyswietlenie powiadomienia dla klienta od serwera 
 	 * @param	msg	odebrana wiadomosc
 	 */
 	public void setInfo(Message msg)
@@ -492,8 +498,8 @@ public class MessPanel extends JPanel
 		
 	}
 	
-	/** Dodanie wiadomosci w ramce z tekstem 
-	 * @param	message	wiadomosc ktora ma by dodana w polu tekstowym
+	/** Dodanie komunikatu w ramce z tekstem 
+	 * @param	message	wiadomosc ktorej tekst (messagetxt) ma byc dodany w polu tekstowym
 	 * */
 	public void addText(Message message)
 	{
@@ -501,7 +507,7 @@ public class MessPanel extends JPanel
 		
 	}
 	
-	/** Dodanie wiadomosci w ramce z tekstem 
+	/** Dodanie komunikatu w ramce z tekstem 
 	 * @param	text	tekst ktory ma byc dodany w polu tekstowym 
 	 */
 	public void addText(String text)
@@ -510,16 +516,16 @@ public class MessPanel extends JPanel
 		
 	}
 	
-	/** Wstawienie nowej wiadomosci w ramce z tekstem 
-	 * @param	message	wiadomosc ktora ma zostac zamieszczona w polu tekstowym
+	/** Wstawienie nowego komunikatu w ramce z tekstem (usuwa poprzednia zawartosc) 
+	 * @param	message	wiadomosc ktorej tekst (messagetxt) ma byc zamieszczony w polu tekstowym
 	 */
 	public void setText(Message message)
 	{
 		outText.setText(message.getAdresat()+": "+message.getMessagetxt() + "\n");//juz obsluzone jesli message.getMessagetxt() jest puste
 	}
 	
-	/** Wstawienie nowej wiadomosci w ramce z tekstem 
-	 * @param	text	 tekst ktory ma zostac zamieszczony w polu tekstowym
+	/** Wstawienie nowego komunikatu w ramce z tekstem (usuwa poprzednia zawartosc)
+	 * @param	text	 tekst ktory ma byc zamieszczony w polu tekstowym
 	 */
 	public void setText(String text)
 	{

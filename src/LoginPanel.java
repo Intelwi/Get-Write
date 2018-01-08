@@ -29,22 +29,22 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 	/** Szerokosc okna do obslugi komunikatora */
 	public static final int WIDTH = 450;
 
-	/** Referencja do okna głownego JFrame */
+	/** Referencja do okna glownego JFrame */
 	private ActionFrame frame;
 	
 	/** Przycisk do logowania */
 	private JButton logButton;
 	
-	/** Pole na login */
+	/** Pole tekstowe do podania loginu */
 	private JTextField logField;
 	
-	/** Etykieta informacyjna (do podania loginu) */
+	/** Etykieta informacyjna (żeby podac login) */
 	private JLabel login;
 	
-	/** Pole na nazwe serwera */
+	/** Pole tekstowe do podania nazwy/IP serwera */
 	private JTextField serwerName;
 	
-	/** Etykieta informacyjna (do podania nazwy serwera) */
+	/** Etykieta informacyjna (zeby podac nazwe/IP serwera) */
 	private JLabel serwerLabel;
 	
 	/** Tworzy panel interfejsu graficznego do logowania 
@@ -197,14 +197,14 @@ public class LoginPanel extends JPanel implements ActionListener, KeyListener
 		
 	}
 	
-	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza ENTER
-	 * @param	e	zdarzenie klawisza ENTER
+	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza
+	 * @param	e	zdarzenie klawisza
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
-	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza ENTER
-	 * @param	e	zdarzenie klawisza ENTER
+	/** Obsluga zdarzenia wywolanego wcisnieciem klawisza
+	 * @param	e	zdarzenie klawisza
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {}	

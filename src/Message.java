@@ -13,13 +13,21 @@ public class Message implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	/** Pole z nazwa adresata wiadomosci */
+	/** Pole z nazwa adresata wiadomosci (login klienta wysylajacego wiadomosc),
+	 * jesli zawiera "noSuchKlient" to wiadomosc jest wyslana przez serwer i oznacza ze ostatnio wyslana wiadomosc 
+	 * przez klienta nie zostala dostarczona (brak klienta do ktorego byla zaadresowana), jesli jest puste to wiadomosc jest
+	 * wyslana przez serwer i zawiera liste dostepnych klientow */
 	private String adresat;
 	
-	/** Pole z nazwa docelowego odbiorcy wiadomosci */
-	private String targetClient; // jesli nic tu nie ma to wiadomosc wysyla serwer
+	/** Pole z nazwa docelowego odbiorcy wiadomosci (login klienta do ktorego ma byc dostarczona wiadomosc), 
+	 * jesli pole jest puste to wiadomosc zostala wyslana przez serwer i zawiera liste dostepnych klientow, 
+	 * jesli wiadomosc jest zwrotna od serwera (adresat = "noSuchKlient") to pole zawiera login klienta 
+	 * do ktorego nie dostarczono wiadomosci */
+	private String targetClient;
 	
-	/** Pole z trescia wiadomosci */
+	/** Pole z trescia wiadomosci, moze zawierac komunikat od innego klienta (gdy jest to wiadomosc od innego klienta),
+	 * liste dostepnych klientow (gdy jest to wiadomosc od serwera z lista klientow), lub komunikat "No such a client available" 
+	 * (wiadomosc zwrotna od serwera oznaczajaca, ze nie dostarczono ostatnio wyslanej wiadomosci przez klienta) */
 	private String messagetxt;
 	
 	/** Tworzy wiadomosc w formie obiektu Message
@@ -45,8 +53,9 @@ public class Message implements Serializable
 		
 	}
 	
-	/** Tworzy wiadomosc w formie obiektu Message
-	 * @param	msg	referencja na obiekt zwierajacy juz gotowa wiadomosc
+	/** Tworzy wiadomosc w formie obiektu Message z zawartosciami pol takimi jak obiekt,
+	 *  do ktorego referencja zostala podana jako parametr
+	 * @param	msg	referencja na obiekt typu Message (wiadomosc), ktory ma byc skopiowany
 	 */
 	public Message(Message msg)
 	{
@@ -106,7 +115,7 @@ public class Message implements Serializable
 	/** Metoda wskazujaca czy wiadomosc zawiera nazwe docelowego odbiorcy wiadomosci 
 	 * @return	wskazanie czy wiadomosc zawiera nazwe docelowego odbiorcy wiadomosci (true - nie zawiera, false - zawiera) 
 	 */
-	public boolean noTarget()//zwraca 1 gdy nie ma targetclient
+	public boolean noTarget()
 	{
 		return targetClient.isEmpty();
 	}

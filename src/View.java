@@ -2,7 +2,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /** 
-* Klasa odpowiedzialna za zarzadzanie interfejsem graficznym po stronie klienta 
+* Klasa odpowiedzialna za zarzadzanie interfejsem graficznym po stronie klienta (widok)
 
 * @version 1.0
 
@@ -15,7 +15,7 @@ public class View
 	/** Referencja do obiektu klasy Klient */
 	private Klient klient;
 	
-	/** Referencja do głownego okna JFrame */
+	/** Referencja do glownego okna ActionFrame */
 	private ActionFrame frame;
 	
 	/** Referencja do panelu zakladek */
@@ -41,14 +41,14 @@ public class View
 		this.klient = klient;
 	}
 	
-	/** Dodanie nowej zakladki z nowym panelem bez przycisku zamkniecia karty */
+	/** Dodanie nowej karty z nowym panelem z zakladka bez przycisku zamkniecia karty */
 	public void addPanelNoExit()
 	{
 		/** Stworzenie zakladki z panelem do wysylania i odbierania wiadomosci */
 		tabbedPane.addTabNoExit(MessPanel.getNameFirst(), new MessPanel(klient, frame, this));
 	}
 	
-	/** Dodanie nowej zakladki z nowym panelem z przyciskiem zamkniecia karty 
+	/** Dodanie nowej karty z nowym panelem z zakladka z przyciskiem zamkniecia karty 
 	 * @param	targetClient	login klienta z ktorym prowadzona jest konwersacja
 	 */
 	public void addPanel(String targetClient)
@@ -73,7 +73,7 @@ public class View
 	
 	/** Tworzenie listy przyciskow z klientami i wyswietlenie 
 	 * @param	msg	odebrana wiadomosc zawierajaca liste klientow
-	 * @throws	NullPointerException	gdy obiekt msg, albo wiadomosci tekstowej w msg nie jest zainicjalizowany
+	 * @throws	NullPointerException	gdy obiekt msg, albo jego pole (messagetxt) nie jest zainicjalizowany/e
 	 */
 	public void createButtontList(Message msg) throws NullPointerException
 	{
@@ -85,7 +85,8 @@ public class View
 		}
 	}
 	
-	/** Powiadomienie uzytkownika interfejsu o braku Klienta do ktorego wysylana jest wiadomosc przez nadpisanie etykiety informacyjnej
+	/** Powiadomienie uzytkownika interfejsu o braku Klienta do ktorego wysylana jest wiadomosc przez 
+	 * nadpisanie etykiety informacyjnej
 	 * @param	msg	odebrana wiadomosc od serwera z powiadomieniem o braku danego klienta	
 	 */
 	public void informUser(Message msg) 
@@ -144,7 +145,8 @@ public class View
 		return false;
 	}
 	
-	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient jest juz ustawiony w karcie Start) 
+	/** Ustawienie targetClient w karcie Start (gdy nie jest on tam ustawiony) lub utworzenie nowej karty (jesli targetClient 
+	 * jest juz ustawiony w karcie Start) 
 	 * @param	msg	odebrana wiadomosc (od innego klienta)
 	 * @param	listMsg	ostatnia wiadomosc od serwera zawierajaca liste z klientami
 	 */
